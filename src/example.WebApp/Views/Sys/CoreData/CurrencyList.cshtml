@@ -1,0 +1,41 @@
+﻿@model List<cloudscribe.Core.Models.Geography.ICurrency>
+
+@{
+    
+}
+<h2>@ViewBag.Heading</h2>
+<table class="table table-striped">
+    <tr>
+        <th> 
+            <a class="btn btn-xs btn-default" asp-action="CurrencyEdit"
+               asp-controller="CoreData">CommonResources.NewCurrency</a> 
+        </th>
+        <th>
+            CommonResources.Title
+        </th>
+        <th>
+            CommonResources.Code
+        </th>
+    </tr>
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            <form role="form" asp-controller="CoreData" asp-action="CurrencyDelete">
+                <input type="hidden" id="currencyGuid" name="currencyGuid" value="@item.Guid" />
+                <a class="btn btn-xs btn-default" asp-action="CurrencyEdit"
+                   asp-controller="CoreData"
+                   asp-route-currencyguid="@item.Guid">CommonResources.Edit</a>
+                <input type="submit" value="CommonResources.Delete"
+                       onclick="javascript: return confirm('@Html.FormatValue(item.Title, "Are you sure you want to delete {0}?")');"
+                       class="btn btn-xs btn-default" />
+            </form>  
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Title)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Code)
+        </td>
+    </tr>
+}
+</table>
